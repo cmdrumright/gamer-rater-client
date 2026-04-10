@@ -1,6 +1,7 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
+import AuthContext from "../../contexts/authContext";
 
 export const Register = () => {
   const [username, setUsername] = useState("admina@straytor.com");
@@ -9,6 +10,7 @@ export const Register = () => {
   const [lastName, setLastName] = useState("Straytor");
   const existDialog = useRef();
   const navigate = useNavigate();
+  const { setToken } = useContext(AuthContext);
 
   const handleRegister = (e) => {
     e.preventDefault();
@@ -27,7 +29,7 @@ export const Register = () => {
       .then((res) => res.json())
       .then((authInfo) => {
         if (authInfo && authInfo.token) {
-          localStorage.setItem("gamer_token", JSON.stringify(authInfo));
+          setToken(JSON.stringify(authInfo));
           navigate("/");
         } else {
           existDialog.current.showModal();

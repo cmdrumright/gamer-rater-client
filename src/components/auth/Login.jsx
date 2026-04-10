@@ -1,12 +1,14 @@
-import React, { useRef, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./Login.css";
+import AuthContext from "../../contexts/authContext";
 
 export const Login = () => {
   const [username, setUsername] = useState("admina@straytor.com");
   const [password, setPassword] = useState("straytor");
   const existDialog = useRef();
   const navigate = useNavigate();
+  const { setToken } = useContext(AuthContext);
 
   const handleLogin = (e) => {
     e.preventDefault();
@@ -19,7 +21,7 @@ export const Login = () => {
     })
       .then((res) => res.json())
       .then((authInfo) => {
-        localStorage.setItem("gamer_token", JSON.stringify(authInfo));
+        setToken(JSON.stringify(authInfo));
         navigate("/");
       });
   };
