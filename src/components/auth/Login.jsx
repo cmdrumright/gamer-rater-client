@@ -30,7 +30,7 @@ export const Login = () => {
         <div>User does not exist</div>
         <button
           className="button--close"
-          onClick={(e) => existDialog.current.close()}
+          onClick={() => existDialog.current.close()}
         >
           Close
         </button>
